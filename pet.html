@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自制宠物计算器</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<form>
+		<h1>宠物修改</h1>
+		<hr>
+		<h2>账号信息</h2>
+			账号：<input type="text" id="zhanghao" value="cgjurr00">
+			宠物名称：<input type="text" id="chongwumingcheng" value="aaa">
+			<button type="button" onclick="updateSQL();">更新</button>
+		<hr>
+		<h2>形象资料</h2>
+		<a href="1.0命运开启者人物.pdf" target="_blank">1.0命运开启者人物</a> |
+		<a href="1.0命运开启者宠物.pdf" target="_blank">1.0命运开启者宠物</a> |
+		<a href="3.0龙之沙漏人物.pdf" target="_blank">3.0龙之沙漏人物</a> |
+		<a href="3.0龙之沙漏宠物.pdf" target="_blank">3.0龙之沙漏宠物</a> |
+		<a href="6.0和谐之曙光人物.pdf" target="_blank">6.0和谐之曙光人物</a> |
+		<a href="6.0和谐之曙光宠物.pdf" target="_blank">6.0和谐之曙光宠物</a> |
+		<a href="石器时代图档人物.pdf" target="_blank">石器时代图档人物</a> |
+		<a href="石器时代图档宠物.pdf" target="_blank">石器时代图档宠物</a> |
+		<a href="寵物造型.zip">资料下载</a>
+		<p>
+			UNK2 - UNK3：形象编码<input type="number" id="xingxiang" min="100000" max="999999">
+			<button type="button" onclick="updateSQL();">更新</button>
+		</p>
+		<hr>
+		<h2>属性修改</h2>
+			<p>UNK12：体力<input type="number" id="tili">随机档<input type="number" id="suiji1" value='2'></p>
+			<p>UNK13：力量<input type="number" id="liliang">随机档<input type="number" id="suiji2" value='2'></p>
+			<p>UNK14：防御<input type="number" id="fangyu">随机档<input type="number" id="suiji3" value='2'></p>
+			<p>UNK15：敏捷<input type="number" id="minjie">随机档<input type="number" id="suiji4" value='2'></p>
+			<p>UNK16：魔法<input type="number" id="mofa">随机档<input type="number" id="suiji5" value='2'></p>
+			<button type="button" onclick="updateSQL();">更新</button>
+		<hr>
+		<h2>种族及四属性</h2>
+		<p>UNK18：种族
+			<select id='zhongzu' onchange="updateUnk18()">
+				<option value="-1" selected>--请选择--</option>
+				<option value="0">人形系</option>
+				<option value="1">龙系</option>
+				<option value="2">不死系</option>
+				<option value="3">飞行系</option>
+				<option value="4">昆虫系</option>
+				<option value="5">植物系</option>
+				<option value="6">野兽系</option>
+				<option value="7">特殊系</option>
+				<option value="8">金属系</option>
+				<option value="9">邪魔系</option>
+			</select>
+		</p>
+		<p>UNK19：地 <input type="range" id="shuxing1" min='0' max='10' step="1" value="0" onchange="updateUnk19()"> <span id='shuxingzhi1'>0</span></p>
+		<p>UNK20：水 <input type="range" id="shuxing2" min='0' max='10' step="1" value="0" onchange="updateUnk20()"> <span id='shuxingzhi2'>0</span></p>
+		<p>UNK21：火 <input type="range" id="shuxing3" min='0' max='10' step="1" value="0" onchange="updateUnk21()"> <span id='shuxingzhi3'>0</span></p>
+		<p>UNK22：风 <input type="range" id="shuxing4" min='0' max='10' step="1" value="0" onchange="updateUnk22()"> <span id='shuxingzhi4'>0</span></p>
+		<hr>
+		<h2>抗性</h2>
+		<p>UNK23：抗　毒 <input type="range" id="kangxing1" min='0' max='100' step="1" value="0" onchange="updateUnk23()"> <span id='kangxingzhi1'>0</span></p>
+		<p>UNK24：抗昏睡 <input type="range" id="kangxing2" min='0' max='100' step="1" value="0" onchange="updateUnk24()"> <span id='kangxingzhi2'>0</span></p>
+		<p>UNK25：抗石化 <input type="range" id="kangxing3" min='0' max='100' step="1" value="0" onchange="updateUnk25()"> <span id='kangxingzhi3'>0</span></p>
+		<p>UNK26：抗酒醉 <input type="range" id="kangxing4" min='0' max='100' step="1" value="0" onchange="updateUnk26()"> <span id='kangxingzhi4'>0</span></p>
+		<p>UNK27：抗混乱 <input type="range" id="kangxing5" min='0' max='100' step="1" value="0" onchange="updateUnk27()"> <span id='kangxingzhi5'>0</span></p>
+		<p>UNK28：抗遗忘 <input type="range" id="kangxing6" min='0' max='100' step="1" value="0" onchange="updateUnk28()"> <span id='kangxingzhi6'>0</span></p>
+		<hr>
+		<h2>修正</h2>
+		<p>UNK29：必杀 <input type="range" id="xiuzheng1" min='0' max='100' step="1" value="0" onchange="updateUnk29()"> <span id='xiuzhengzhi1'>0</span></p>
+		<p>UNK30：反击 <input type="range" id="xiuzheng2" min='0' max='100' step="1" value="0" onchange="updateUnk30()"> <span id='xiuzhengzhi2'>0</span></p>
+		<p>UNK31：命中 <input type="range" id="xiuzheng3" min='0' max='100' step="1" value="0" onchange="updateUnk31()"> <span id='xiuzhengzhi3'>0</span></p>
+		<p>UNK32：闪避 <input type="range" id="xiuzheng4" min='0' max='100' step="1" value="0" onchange="updateUnk32()"> <span id='xiuzhengzhi4'>0</span></p>
+		<hr>
+		<h2>技能</h2>
+		<p>UNK52：技能栏<input type="range" id="jinenglan" min='1' max='10' step="1" value="0" onchange="updateUnk52()"> <span id='jinenglanzhi'>1</span></p>
+		<hr>
+		<p>UNK73 - UNK82：技能</p>
+		<select id='jineng1' onchange="updateUnk73()">
+			<option value="-1">--请选择技能01--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng2' onchange="updateUnk74()">
+			<option value="-1">--请选择技能02--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng3' onchange="updateUnk75()">
+			<option value="-1">--请选择技能03--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng4' onchange="updateUnk76()">
+			<option value="-1">--请选择技能04--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng5' onchange="updateUnk77()">
+			<option value="-1">--请选择技能05--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng6' onchange="updateUnk78()">
+			<option value="-1">--请选择技能06--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng7' onchange="updateUnk79()">
+			<option value="-1">--请选择技能07--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng8' onchange="updateUnk80()">
+			<option value="-1">--请选择技能08--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng9' onchange="updateUnk81()">
+			<option value="-1">--请选择技能09--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+		<select id='jineng10' onchange="updateUnk82()">
+			<option value="-1">--请选择技能10--</option>
+			<option value="2769">神圣灾祸降临-RO</option>
+			<option value="2869">神圣无情冰雨-RO</option>
+			<option value="2969">神圣毁灭核爆-RO</option>
+			<option value="3069">神圣凛冽狂风-RO</option>
+			<option value="4869">是非黑白不分-RO</option>
+			<option value="6669">神圣再生之力-RO</option>
+			<option value="669">神圣战栗袭心-RO</option>
+			<option value="409">活杀气功弹</option>
+			<option value="809">圣盾之魂</option>
+			<option value="1209">卧薪尝胆</option>
+		</select>
+	</form>
+	<hr>
+	<h2>SQL</h2>
+	<code id='sql'>
+		update rogue.tbl_pet 
+		set 
+		<span id='unk2unk3'></span>
+		<span id='unk12-16'></span>
+		<span id='unk18'></span>
+		<span id='unk19'></span>
+		<span id='unk20'></span>
+		<span id='unk21'></span>
+		<span id='unk22'></span>
+		<span id='unk23'></span>
+		<span id='unk24'></span>
+		<span id='unk25'></span>
+		<span id='unk26'></span>
+		<span id='unk27'></span>
+		<span id='unk28'></span>
+		<span id='unk29'></span>
+		<span id='unk30'></span>
+		<span id='unk31'></span>
+		<span id='unk32'></span>
+		<span id='unk52'></span>
+		<span id='unk73'></span>
+		<span id='unk74'></span>
+		<span id='unk75'></span>
+		<span id='unk76'></span>
+		<span id='unk77'></span>
+		<span id='unk78'></span>
+		<span id='unk79'></span>
+		<span id='unk80'></span>
+		<span id='unk81'></span>
+		<span id='unk82'></span>
+		where 
+		unk94='<span id='petname'></span>' 
+		and 
+		cdkey='<span id='account'></span>';
+	</code>
+	<script type="text/javascript">
+		function updateSQL(){
+			// 更新账号和宠物名称信息
+			document.getElementById('account').innerHTML = document.getElementById('zhanghao').value;
+			document.getElementById('petname').innerHTML = document.getElementById('chongwumingcheng').value;
+
+			// 修改宠物形象
+			var xingxiang = document.getElementById('xingxiang').value;
+			if(xingxiang){
+				document.getElementById('unk2unk3').innerHTML = 
+					"unk2='" + xingxiang + "', unk3='" + xingxiang + "', ";
+			}else{
+				document.getElementById('unk2unk3').innerHTML = '';
+			}
+
+			// 修改五围
+			var tili = document.getElementById('tili').value;
+			var liliang = document.getElementById('liliang').value;
+			var fangyu = document.getElementById('fangyu').value;
+			var minjie = document.getElementById('minjie').value;
+			var mofa = document.getElementById('mofa').value;
+			if(tili > 0 && liliang > 0 && fangyu > 0 && minjie > 0 && mofa > 0){
+				var suiji1 = document.getElementById('suiji1').value;
+				var suiji2 = document.getElementById('suiji2').value;
+				var suiji3 = document.getElementById('suiji3').value;
+				var suiji4 = document.getElementById('suiji4').value;
+				var suiji5 = document.getElementById('suiji5').value;
+				var putpettime = tili*64*64*64*64 + liliang*64*64*64 + fangyu*64*64 + minjie*64 + mofa*1;
+				document.getElementById('unk12-16').innerHTML = 
+					" unk12='" + (1*tili + 1*suiji1)*20 + "'," + 
+					" unk13='" + (1*liliang + 1*suiji2)*20 +"'," + 
+					" unk14='" + (1*fangyu + 1*suiji3)*20 + "'," +
+					" unk15='" + (1*minjie + 1*suiji4)*20 + "'," + 
+					" unk16='" + (1*mofa + 1*suiji5)*20 + "'," + 
+					" putpettime='" + putpettime + "', ";
+			}else{
+				document.getElementById('unk12-16').innerHTML = '';
+			}
+		};
+
+		// 修改种族
+		function updateUnk18(){
+			var zhongzu = document.getElementById('zhongzu').value;
+			if(zhongzu > -1){
+				document.getElementById('unk18').innerHTML = "unk18='" + zhongzu + "',";
+			}else{
+				document.getElementById('unk18').innerHTML = "";
+			}
+		}
+
+		// 修改地水火风属性
+		function updateUnk19(){
+			document.getElementById('unk19').innerHTML = "unk19='" + document.getElementById('shuxing1').value * 10 + "',";
+			document.getElementById('shuxingzhi1').innerHTML = document.getElementById('shuxing1').value;
+		}
+
+		function updateUnk20(){
+			document.getElementById('unk20').innerHTML = "unk20='" + document.getElementById('shuxing2').value * 10 + "',";
+			document.getElementById('shuxingzhi2').innerHTML = document.getElementById('shuxing2').value;
+		}
+
+		function updateUnk21(){
+			document.getElementById('unk21').innerHTML = "unk21='" + document.getElementById('shuxing3').value * 10 + "',";
+			document.getElementById('shuxingzhi3').innerHTML = document.getElementById('shuxing3').value;
+		}
+
+		function updateUnk22(){
+			document.getElementById('unk22').innerHTML = "unk22='" + document.getElementById('shuxing4').value * 10 + "',";
+			document.getElementById('shuxingzhi4').innerHTML = document.getElementById('shuxing4').value;
+		}
+
+		// 修改抗性
+		function updateUnk23(){
+			document.getElementById('unk23').innerHTML = "unk23='" + document.getElementById('kangxing1').value + "',";
+			document.getElementById('kangxingzhi1').innerHTML = document.getElementById('kangxing1').value;
+		}
+
+		function updateUnk24(){
+			document.getElementById('unk24').innerHTML = "unk24='" + document.getElementById('kangxing2').value + "',";
+			document.getElementById('kangxingzhi2').innerHTML = document.getElementById('kangxing2').value;
+		}
+
+		function updateUnk25(){
+			document.getElementById('unk25').innerHTML = "unk25='" + document.getElementById('kangxing3').value + "',";
+			document.getElementById('kangxingzhi3').innerHTML = document.getElementById('kangxing3').value;
+		}
+
+		function updateUnk26(){
+			document.getElementById('unk26').innerHTML = "unk26='" + document.getElementById('kangxing4').value + "',";
+			document.getElementById('kangxingzhi4').innerHTML = document.getElementById('kangxing4').value;
+		}
+
+		function updateUnk27(){
+			document.getElementById('unk27').innerHTML = "unk27='" + document.getElementById('kangxing5').value + "',";
+			document.getElementById('kangxingzhi5').innerHTML = document.getElementById('kangxing5').value;
+		}
+
+		function updateUnk28(){
+			document.getElementById('unk28').innerHTML = "unk28='" + document.getElementById('kangxing6').value + "',";
+			document.getElementById('kangxingzhi6').innerHTML = document.getElementById('kangxing6').value;
+		}
+
+		// 修改修正值
+		function updateUnk29(){
+			document.getElementById('unk29').innerHTML = "unk29='" + document.getElementById('xiuzheng1').value + "',";
+			document.getElementById('xiuzhengzhi1').innerHTML = document.getElementById('xiuzheng1').value;
+		}
+
+		function updateUnk30(){
+			document.getElementById('unk30').innerHTML = "unk30='" + document.getElementById('xiuzheng2').value + "',";
+			document.getElementById('xiuzhengzhi2').innerHTML = document.getElementById('xiuzheng2').value;
+		}
+
+		function updateUnk31(){
+			document.getElementById('unk31').innerHTML = "unk31='" + document.getElementById('xiuzheng3').value + "',";
+			document.getElementById('xiuzhengzhi3').innerHTML = document.getElementById('xiuzheng3').value;
+		}
+
+		function updateUnk32(){
+			document.getElementById('unk32').innerHTML = "unk32='" + document.getElementById('xiuzheng4').value + "',";
+			document.getElementById('xiuzhengzhi4').innerHTML = document.getElementById('xiuzheng4').value;
+		}
+
+		// 修改技能栏数
+		function updateUnk52(){
+			document.getElementById('unk52').innerHTML = "unk52='" + document.getElementById('jinenglan').value + "',";
+			document.getElementById('jinenglanzhi').innerHTML = document.getElementById('jinenglan').value;
+		}
+
+		// 修改技能
+		function updateUnk73(){
+			var jineng1 = document.getElementById('jineng1').value;
+			if(jineng1 > -1){
+				document.getElementById('unk73').innerHTML = "unk73='" + jineng1 + "',";
+			}else{
+				document.getElementById('unk73').innerHTML = "";
+			}
+		}
+		function updateUnk74(){
+			var jineng2 = document.getElementById('jineng2').value;
+			if(jineng2 > -1){
+				document.getElementById('unk74').innerHTML = "unk74='" + jineng2 + "',";
+			}else{
+				document.getElementById('unk74').innerHTML = "";
+			}
+		}
+		function updateUnk75(){
+			var jineng3 = document.getElementById('jineng3').value;
+			if(jineng3 > -1){
+				document.getElementById('unk75').innerHTML = "unk75='" + jineng3 + "',";
+			}else{
+				document.getElementById('unk75').innerHTML = "";
+			}
+		}
+		function updateUnk76(){
+			var jineng4 = document.getElementById('jineng4').value;
+			if(jineng4 > -1){
+				document.getElementById('unk76').innerHTML = "unk76='" + jineng4 + "',";
+			}else{
+				document.getElementById('unk76').innerHTML = "";
+			}
+		}
+		function updateUnk77(){
+			var jineng5 = document.getElementById('jineng5').value;
+			if(jineng5 > -1){
+				document.getElementById('unk77').innerHTML = "unk77='" + jineng5 + "',";
+			}else{
+				document.getElementById('unk77').innerHTML = "";
+			}
+		}
+		function updateUnk78(){
+			var jineng6 = document.getElementById('jineng6').value;
+			if(jineng6 > -1){
+				document.getElementById('unk78').innerHTML = "unk78='" + jineng6 + "',";
+			}else{
+				document.getElementById('unk78').innerHTML = "";
+			}
+		}
+		function updateUnk79(){
+			var jineng7 = document.getElementById('jineng7').value;
+			if(jineng7 > -1){
+				document.getElementById('unk79').innerHTML = "unk79='" + jineng7 + "',";
+			}else{
+				document.getElementById('unk79').innerHTML = "";
+			}
+		}
+		function updateUnk80(){
+			var jineng8 = document.getElementById('jineng8').value;
+			if(jineng8 > -1){
+				document.getElementById('unk80').innerHTML = "unk80='" + jineng8 + "',";
+			}else{
+				document.getElementById('unk80').innerHTML = "";
+			}
+		}
+		function updateUnk81(){
+			var jineng9 = document.getElementById('jineng9').value;
+			if(jineng9 > -1){
+				document.getElementById('unk81').innerHTML = "unk81='" + jineng9 + "',";
+			}else{
+				document.getElementById('unk81').innerHTML = "";
+			}
+		}
+		function updateUnk82(){
+			var jineng10 = document.getElementById('jineng10').value;
+			if(jineng10 > -1){
+				document.getElementById('unk82').innerHTML = "unk82='" + jineng10 + "',";
+			}else{
+				document.getElementById('unk82').innerHTML = "";
+			}
+		}
+
+		window.onload = function(){
+			updateSQL();
+		};
+	</script>
+</body>
+</html>
